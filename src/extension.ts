@@ -70,6 +70,12 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.window
         .showInputBox({
           placeHolder: "Enter the light theme time",
+          validateInput(value) {
+            if (isNaN(parseInt(value))) {
+              return "Please enter a valid number";
+            }
+            return null;
+          },
         })
         .then((time) => {
           if (!time) return;
@@ -87,6 +93,12 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.window
         .showInputBox({
           placeHolder: "Enter the dark theme time",
+          validateInput(value) {
+            if (isNaN(parseInt(value))) {
+              return "Please enter a valid number";
+            }
+            return null;
+          },
         })
         .then((time) => {
           if (!time) return;
@@ -156,19 +168,19 @@ const getConfig = (): Config => {
   const lightTheme = configuration.get("lightTheme") as string | undefined;
 
   const lightThemeTime = configuration.get("lightThemeTime") as
-    | string
+    | number
     | undefined;
 
   const darkThemeTime = configuration.get("darkThemeTime") as
-    | string
+    | number
     | undefined;
 
   return {
     enabled: !!enabled,
     darkTheme: darkTheme,
     lightTheme: lightTheme,
-    lightThemeTime: lightThemeTime === undefined ? 6 : parseInt(lightThemeTime),
-    darkThemeTime: darkThemeTime === undefined ? 19 : parseInt(darkThemeTime),
+    lightThemeTime: lightThemeTime ?? 6,
+    darkThemeTime: darkThemeTime ?? 19,
   };
 };
 
@@ -193,7 +205,9 @@ const setConfig = (config: Partial<Config>) => {
 };
 
 const applyTheme = (theme: string) => {
-  vscode.workspace.getConfiguration().update("workbench.colorTheme", theme);
+  vscode.workspace
+    .getConfiguration("workbench")
+    .update("colorTheme", theme, vscode.ConfigurationTarget.Global);
 };
 
 type Config = {
