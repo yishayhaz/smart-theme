@@ -82,6 +82,7 @@ export function activate(context: vscode.ExtensionContext) {
 
           config.lightThemeTime = parseInt(time);
           setConfig({ lightThemeTime: parseInt(time) });
+          onStartup(config);
           createCronTasks(config);
         });
     }
@@ -105,6 +106,7 @@ export function activate(context: vscode.ExtensionContext) {
 
           config.darkThemeTime = parseInt(time);
           setConfig({ darkThemeTime: parseInt(time) });
+          onStartup(config);
           createCronTasks(config);
         });
     }
@@ -185,22 +187,46 @@ const getConfig = (): Config => {
 };
 
 const setConfig = (config: Partial<Config>) => {
+  const configuration = vscode.workspace.getConfiguration(EXTENSION_ID);
+
   if ("enabled" in config) {
-    vscode.workspace
-      .getConfiguration(EXTENSION_ID)
-      .update(`${EXTENSION_ID}.enabled`, config.enabled);
+    configuration.update(
+      "enabled",
+      config.enabled,
+      vscode.ConfigurationTarget.Global
+    );
   }
 
   if ("darkTheme" in config) {
-    vscode.workspace
-      .getConfiguration(EXTENSION_ID)
-      .update(`${EXTENSION_ID}.darkTheme`, config.darkTheme);
+    configuration.update(
+      "darkTheme",
+      config.darkTheme,
+      vscode.ConfigurationTarget.Global
+    );
   }
 
   if ("lightTheme" in config) {
-    vscode.workspace
-      .getConfiguration(EXTENSION_ID)
-      .update(`${EXTENSION_ID}.lightTheme`, config.lightTheme);
+    configuration.update(
+      "lightTheme",
+      config.lightTheme,
+      vscode.ConfigurationTarget.Global
+    );
+  }
+
+  if ("lightThemeTime" in config) {
+    configuration.update(
+      "lightThemeTime",
+      config.lightThemeTime,
+      vscode.ConfigurationTarget.Global
+    );
+  }
+
+  if ("darkThemeTime" in config) {
+    configuration.update(
+      "darkThemeTime",
+      config.darkThemeTime,
+      vscode.ConfigurationTarget.Global
+    );
   }
 };
 
