@@ -2,7 +2,7 @@
   "name": "smart-theme",
   "displayName": "Smart Theme",
   "description": "Smart theme helps you control the theme based on the time of the day, light mode is underrated, it's really helpfull when there's a sun right into your screen!",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "icon": "icon.png",
   "publisher": "yishayhaz",
   "repository": {
