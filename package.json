@@ -1,0 +1,103 @@
+{
+  "name": "smart-theme",
+  "displayName": "Smart Theme",
+  "description": "Smart theme helps you control the theme based on the time of the day, light mode is underrated, it's really helpfull when there's a sun right into your screen!",
+  "version": "0.0.1",
+  "icon": "icon.png",
+  "publisher": "yishayhaz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yishayhaz/smart-theme"
+  },
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "smart-theme.enable",
+        "title": "Smart Theme: Enable Smart Theme"
+      },
+      {
+        "command": "smart-theme.disable",
+        "title": "Smart Theme: Disable Smart Theme"
+      },
+      {
+        "command": "smart-theme.setLightTheme",
+        "title": "Smart Theme: Set Light Theme"
+      },
+      {
+        "command": "smart-theme.setDarkTheme",
+        "title": "Smart Theme: Set Dark Theme"
+      },
+      {
+        "command": "smart-theme.setLightThemeTime",
+        "title": "Smart Theme: Set Light Theme Time (24h, default: 6)"
+      },
+      {
+        "command": "smart-theme.setDarkThemeTime",
+        "title": "Smart Theme: Set Dark Theme Time (24h, default: 18)"
+      }
+    ],
+    "configuration": {
+      "title": "Smart Theme",
+      "properties": {
+        "smart-theme.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/Disable Smart Theme"
+        },
+        "smart-theme.lightTheme": {
+          "type": "string",
+          "default": "Solarized Light",
+          "description": "Light Theme"
+        },
+        "smart-theme.darkTheme": {
+          "type": "string",
+          "default": "Solarized Dark",
+          "description": "Dark Theme"
+        },
+        "smart-theme.lightThemeTime": {
+          "type": "number",
+          "default": 6,
+          "description": "Light theme starts at this time (24h)"
+        },
+        "smart-theme.darkThemeTime": {
+          "type": "number",
+          "default": 19,
+          "description": "Dark theme starts at this time (24h)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@types/node-cron": "^3.0.11",
+    "@types/vscode": "^1.93.0",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.9.1",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "node-cron": "^3.0.3"
+  }
+}
